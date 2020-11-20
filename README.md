@@ -4,7 +4,7 @@ Enhancements: We can provide direct access of doctors to rural woman again with 
 
 Team members:
 1)Arsh Kashyap
-2)Sarthak Gaba 
+2)Sarthak Gaba
 3)Utkarsh Goel
 4)Sneha Gupta
 5)Dikshita Basu
