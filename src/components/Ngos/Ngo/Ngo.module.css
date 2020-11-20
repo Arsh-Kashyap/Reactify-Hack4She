@@ -1,0 +1,17 @@
+.Card{
+    margin: 15px auto !important;
+    padding:0 !important;
+    width:82%!important;
+    box-shadow: 2px 2px 4px #30ffe7;
+}
+.NgoCard{
+    margin: 15px auto !important;
+    padding:0 !important;
+    width:80%!important;
+}
+.CardHeader{
+    font-size: 350%;
+}
+.SideCardHeader{
+    font-size: 150%;
+}
