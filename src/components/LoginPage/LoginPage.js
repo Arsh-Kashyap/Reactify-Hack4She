@@ -13,30 +13,7 @@ const LoginPage = () => {
 	const history = useHistory();
 
 	const startLogin = () => {
-		firebase
-			.auth()
-			.signInWithPopup(googleProvider)
-			.then((res) => {
-				setName(res.user.displayName);
-				setUid(res.user.uid);
-				database.ref(`users/${res.user.uid}`).once("value", (snapshot) => {
-					if (snapshot.exists()) {
-						setAmount(snapshot.val().amount);
-					} else {
-						database.ref(`users/${res.user.uid}`).set({
-							name: res.user.displayName,
-							amount: 0,
-						});
-						setAmount(0);
-					}
-				});
-				console.log(uid,name);
-				history.push("/");
-			})
-			.catch((err) => {
-				console.log(err);
-				alert(err);
-			});
+		return () => firebase.auth().signInWithPopup(googleProvider);
 	};
 
 	return (
@@ -50,7 +27,7 @@ const LoginPage = () => {
 				boxSizing: "border-box",
 			}}
 		>
-			<Button size="lg" variant="info" onClick={startLogin}>
+			<Button size="lg" variant="info" onClick={startLogin()}>
 				Login with Google
 			</Button>
 		</Container>

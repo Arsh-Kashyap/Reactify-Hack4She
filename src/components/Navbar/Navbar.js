@@ -4,19 +4,40 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import classes from "./Navbar.module.css";
 import { userContext } from "../../context/userContext";
-import { firebase } from "../../firebase/firebase";
+import { firebase, database } from "../../firebase/firebase";
 
 const NavbarComponent = () => {
 	const history = useHistory();
 	const { name, setName, setUid, setAmount } = useContext(userContext);
 
-	const startLogOut = () => {
-		setName("");
-		setUid("");
-		setAmount("");
-		firebase.auth().signOut();
-		history.push("/");
-	};
+	const startLogOut = () => firebase.auth().signOut();
+
+	firebase.auth().onAuthStateChanged((user) => {
+		if (user) {
+			setName(user.displayName);
+			setUid(user.uid);
+			database.ref(`users/${user.uid}`).once("value", (snapshot) => {
+				if (snapshot.exists()) {
+					setAmount(snapshot.val().amount);
+				} else {
+					database.ref(`users/${user.uid}`).set({
+						name: user.displayName,
+						amount: 0,
+					});
+					setAmount(0);
+				}
+			});
+			if (history.location.pathname === "/login") {
+				history.push("/");
+			}
+		} else {
+			console.log("logout");
+			setName("");
+			setUid("");
+			setAmount("");
+			history.push("/");
+		}
+	});
 
 	return (
 		<div>

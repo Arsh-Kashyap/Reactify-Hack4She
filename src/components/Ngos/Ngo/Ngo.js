@@ -99,7 +99,9 @@ const Ngo = (props) => {
                 <Col lg={4} sm={12}>
                     
                     <Card border="success" className={classes.Card} style={{ width: '18rem' }}>
-                        <Card.Header className={classes.SideCardHeader}>Total funding recieved: ₹{props.info.fund}</Card.Header>
+                        <Card.Header className={classes.SideCardHeader}><p>Total funding recieved: ₹{props.info.fund}</p>
+                        <p>Pads Distibuted: {Math.floor(props.info.fund/20)}</p>
+                        </Card.Header>
                         <Card.Body>
                         <Card.Title>Top Contributors</Card.Title>
                         <ListGroup className="list-group-flush">

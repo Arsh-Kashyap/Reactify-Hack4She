@@ -66,12 +66,12 @@ body {
   margin:8px;
   padding:40px;
   border-radius:50%;
-  background-color:#4CAF50;
+  background-color:#17a2b8;
   outline:none;
 }
 .btn:active{
-  color:#4CAF50;
-  border:3px solid #4CAF50;
+  color:#17a2b8;
+  border:3px solid #17a2b8;
   font-weight: bold;
   background-color: white;
 }
