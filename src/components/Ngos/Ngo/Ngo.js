@@ -98,7 +98,8 @@ const Ngo = (props) => {
 						style={{ width: "18rem" }}
 					>
 						<Card.Header className={classes.SideCardHeader}>
-							Total funding recieved: ₹{props.info.fund}
+							<p>Total funding recieved: ₹{props.info.fund}</p>
+							<p>Pads Distibuted: {Math.floor(props.info.fund / 20)}</p>
 						</Card.Header>
 						<Card.Body>
 							<Card.Title>Top Contributors</Card.Title>
