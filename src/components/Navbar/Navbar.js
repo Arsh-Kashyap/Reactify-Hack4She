@@ -57,7 +57,6 @@ const NavbarComponent = () => {
 					history.push("/");
 				}
 			} else {
-				console.log("logout");
 				setName("");
 				setUid("");
 				setAmount("");
@@ -77,7 +76,13 @@ const NavbarComponent = () => {
 				expand="sm"
 			>
 				<Link to="/">
-					<Navbar.Brand href="/"><img style={{height:"30px"}} src="https://img.icons8.com/color/48/000000/pad.png"/> <strong>Paddify</strong></Navbar.Brand>
+					<Navbar.Brand href="/">
+						<img
+							style={{ height: "30px" }}
+							src="https://img.icons8.com/color/48/000000/pad.png"
+						/>{" "}
+						<strong>Paddify</strong>
+					</Navbar.Brand>
 				</Link>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse id="responsive-navbar-nav">
