@@ -83,8 +83,11 @@ const Ngo = (props) => {
 						<hr></hr>
 
 						<Link to={"/donate/" + props.info.name}>
-							<Button variant="outline-primary" size="lg" block>
+							<Button  variant="outline-primary" size="lg" block>
 								Donate to make a difference
+							</Button>
+							<Button  variant="outline-danger" size="lg" block>
+								Request pads for your society
 							</Button>
 						</Link>
 

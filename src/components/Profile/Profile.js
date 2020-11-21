@@ -33,22 +33,26 @@ const Profile = () => {
 					flexDirection: "column",
 				}}
 			>
-				<h3 style={{ height: "100%", width: "100%" }}>
+				<h3 style={{ textAlign:'center', fontFamily: "Arial",height: "100%", width: "100%" }}>
 					Hello, {name} <br />
 					You have donated ₹ {amount} towards the cause.
 				</h3>
-				<div>
-					{transactions.map((data) => (
+				<div style={{margin:"30px auto", width:"50%"}}>
+					
+					{transactions.map((data,ele) => (
 						<div>
-							<Card style={{ width: "18rem" }}>
-								<Card.Header>{data.ngo}</Card.Header>
+								<Card style={{boxShadow: "2px 2px 4px #30ffe7"}}>
+								<Card.Header><strong style={{fontSize:"1.2rem"}}>{data.ngo}</strong></Card.Header>
 								<ListGroup variant="flush">
 									<ListGroup.Item>{data.orderData.amount}</ListGroup.Item>
 								</ListGroup>
-							</Card>
-							<hr></hr>
+								</Card>
+								<hr></hr>
+						
+				
 						</div>
 					))}
+					
 				</div>
 			</Container>
 		);
