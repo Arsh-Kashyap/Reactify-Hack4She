@@ -102,7 +102,7 @@ const Ngo = (props) => {
 							<p>Pads Distibuted: {Math.floor(props.info.fund / 20)}</p>
 						</Card.Header>
 						<Card.Body>
-							<Card.Title>Top Contributors</Card.Title>
+							<Card.Title>Top Contributions</Card.Title>
 							<ListGroup className="list-group-flush">
 								{TopContributors}
 							</ListGroup>
