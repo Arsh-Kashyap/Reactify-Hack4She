@@ -1,43 +1,71 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import classes from "./Navbar.module.css";
 import { userContext } from "../../context/userContext";
 import { firebase, database } from "../../firebase/firebase";
+import axios from "axios";
 
 const NavbarComponent = () => {
 	const history = useHistory();
-	const { name, setName, setUid, setAmount } = useContext(userContext);
+	const {
+		uid,
+		name,
+		amount,
+		transactions,
+		setUid,
+		setAmount,
+		setName,
+		setTransactions,
+		setLoading,
+	} = useContext(userContext);
 
 	const startLogOut = () => firebase.auth().signOut();
 
-	firebase.auth().onAuthStateChanged((user) => {
-		if (user) {
-			setName(user.displayName);
-			setUid(user.uid);
-			database.ref(`users/${user.uid}`).once("value", (snapshot) => {
-				if (snapshot.exists()) {
-					setAmount(snapshot.val().amount);
-				} else {
-					database.ref(`users/${user.uid}`).set({
-						name: user.displayName,
-						amount: 0,
-					});
-					setAmount(0);
+	useEffect(() => {
+		firebase.auth().onAuthStateChanged(async (user) => {
+			setLoading(true);
+			if (user) {
+				setName(user.displayName);
+				setUid(user.uid);
+				await database.ref(`users/${user.uid}`).once("value", (snapshot) => {
+					if (snapshot.exists()) {
+						setAmount(snapshot.val().amount);
+					} else {
+						database.ref(`users/${user.uid}`).set({
+							name: user.displayName,
+							amount: 0,
+						});
+						setAmount(0);
+					}
+				});
+				const response = await axios.get(
+					"https://hooks-practce.firebaseio.com/donations.json"
+				);
+				const data = response.data;
+				let amount = 0;
+				setTransactions([]);
+				for (let key in data) {
+					if (data[key].userId === user.uid) {
+						amount += +data[key].orderData.amount;
+						setTransactions((prev) => prev.concat(data[key]));
+					}
 				}
-			});
-			if (history.location.pathname === "/login") {
+				setAmount(amount);
+				if (history.location.pathname === "/login") {
+					history.push("/");
+				}
+			} else {
+				console.log("logout");
+				setName("");
+				setUid("");
+				setAmount("");
 				history.push("/");
 			}
-		} else {
-			console.log("logout");
-			setName("");
-			setUid("");
-			setAmount("");
-			history.push("/");
-		}
-	});
+			setLoading(false);
+		});
+	}, []);
 
 	return (
 		<div>
