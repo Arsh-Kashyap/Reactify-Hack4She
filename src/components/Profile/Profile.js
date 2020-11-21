@@ -25,20 +25,31 @@ const Profile = () => {
 		);
 	} else
 		return (
-			<Container className="justify-content-center">
-				Hello, {name} <br />
-				You have donated ₹ {amount} towards the cause.
-				{transactions.map((data) => (
-					<div>
-						<Card style={{ width: "18rem" }}>
-							<Card.Header>{data.ngo}</Card.Header>
-							<ListGroup variant="flush">
-								<ListGroup.Item>{data.orderData.amount}</ListGroup.Item>
-							</ListGroup>
-						</Card>
-						<hr></hr>
-					</div>
-				))}
+			<Container
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignContent: "center",
+					flexDirection: "column",
+				}}
+			>
+				<h3 style={{ height: "100%", width: "100%" }}>
+					Hello, {name} <br />
+					You have donated ₹ {amount} towards the cause.
+				</h3>
+				<div>
+					{transactions.map((data) => (
+						<div>
+							<Card style={{ width: "18rem" }}>
+								<Card.Header>{data.ngo}</Card.Header>
+								<ListGroup variant="flush">
+									<ListGroup.Item>{data.orderData.amount}</ListGroup.Item>
+								</ListGroup>
+							</Card>
+							<hr></hr>
+						</div>
+					))}
+				</div>
 			</Container>
 		);
 };
