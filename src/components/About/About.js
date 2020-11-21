@@ -17,7 +17,7 @@ const About = () => {
 					</div>
 					<Card.Header style={{fontSize:"25px"}}><strong>{labels[index]}</strong></Card.Header>
 					<ListGroup variant="flush">
-						<ListGroup.Item>Donated 100,000+ sanitary pads</ListGroup.Item>
+						<ListGroup.Item><strong>Provided 100,000+ sanitary pads</strong></ListGroup.Item>
 					</ListGroup>
 				</Card>
 			</div>
@@ -25,8 +25,8 @@ const About = () => {
 	));
 	return (
 		<div>
-
 			<Container>
+				<h1 className={classes.About} style={{textAlign: "center"}}>Our Sponsors</h1>
 			<Row>
 				{sponsors}
 			</Row>

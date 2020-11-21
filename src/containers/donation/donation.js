@@ -49,7 +49,8 @@ const Donation = (props) => {
             },
             value: '',
             validation: {
-                required: true
+                required: true,
+                isEmail: true
             },
             isValid: false,
             touched: false
