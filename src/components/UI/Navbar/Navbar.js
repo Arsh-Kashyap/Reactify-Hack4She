@@ -3,8 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import classes from "./Navbar.module.css";
-import { userContext } from "../../context/userContext";
-import { firebase, database } from "../../firebase/firebase";
+import { userContext } from "../../../context/userContext";
+import { firebase, database } from "../../../firebase/firebase";
 import axios from "axios";
 
 const NavbarComponent = () => {

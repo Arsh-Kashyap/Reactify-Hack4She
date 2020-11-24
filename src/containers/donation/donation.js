@@ -6,7 +6,7 @@ import NgoContext from '../../context/ngoContext';
 import Button from 'react-bootstrap/Button'
 import classes from './donation.module.css';
 import axios from 'axios';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import Input from '../../components/Input/Input';
 
 const Donation = (props) => {
@@ -97,7 +97,6 @@ const Donation = (props) => {
                 setLoading(true);
                 console.log(error);
             })
-        // props.onOrderBurger(order, props.history, props.token);
     }
 
     const checkValidity = (inputType) => {
@@ -180,21 +179,5 @@ const Donation = (props) => {
         </div>
     );
 }
-
-// const mapStateToProps = (state) => {
-//     return {
-//         ingredients: state.burgerBuilder.ingredients,
-//         price: state.burgerBuilder.totalPrice,
-//         loading: state.order.loading,
-//         token: state.auth.tokenId,
-//         userId: state.auth.userId
-//     }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onOrderBurger: (orderData, history, token) => dispatch(actions.purchaseBurger(orderData, history, token))
-//     }
-// }
 
 export default Donation;

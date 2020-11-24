@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import classes from "./App.module.css";
-import Navbar from "./components/Navbar/Navbar";
-import Home from "./containers/Home/Home";
+import Navbar from "./components/UI/Navbar/Navbar";
+import Home from "./components/Home/Home";
 import LoginPage from "./components/LoginPage/LoginPage";
 import { UserProvider } from "./context/userContext";
 import { NgoProvider } from "./context/ngoContext";

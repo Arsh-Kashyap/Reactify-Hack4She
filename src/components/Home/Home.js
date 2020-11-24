@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from "react";
 
 import NgoContext from "../../context/ngoContext";
-import Carousel from "../../components/Carousel/Carousel";
-import Cards from "../../components/Cards/Cards";
+import Carousel from "../UI/Carousel/Carousel";
+import Cards from "../UI/Cards/Cards";
 import axios from "axios";
 
 const Home = () => {
