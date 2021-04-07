@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -9,6 +9,7 @@ import axios from "axios";
 
 const NavbarComponent = () => {
 	const history = useHistory();
+	const [ngoName, setNgoName] = useState("");
 	const {
 		uid,
 		name,
@@ -22,8 +23,8 @@ const NavbarComponent = () => {
 	} = useContext(userContext);
 
 	const startLogOut = () => firebase.auth().signOut();
-
 	useEffect(() => {
+		setNgoName(localStorage.getItem('ngoName'));
 		firebase.auth().onAuthStateChanged(async (user) => {
 			setLoading(true);
 			if (user) {
@@ -66,6 +67,12 @@ const NavbarComponent = () => {
 		});
 	}, []);
 
+	const logOut = () => {
+		console.log("in");
+		localStorage.removeItem('ngoName');
+		setNgoName(null);
+	}
+
 	return (
 		<div>
 			<Navbar
@@ -102,11 +109,28 @@ const NavbarComponent = () => {
 								About
 							</Nav.Link>
 						</Link>
-						<Link to="/registerNgo">
-							<Nav.Link style={{ marginTop: "0.9px" }} eventKey={2} href="/">
-								Register Ngo
-							</Nav.Link>
-						</Link>
+						{ngoName ?
+							<Link to="/registerNgo">
+								<Nav.Link onClick={() => logOut()} style={{ marginTop: "0.9px" }} eventKey={2}>
+									Log out
+								</Nav.Link>
+							</Link>
+							:
+							<>
+								<Link to="/loginNgo">
+									<Nav.Link onClick={() => logOut()} style={{ marginTop: "0.9px" }} eventKey={2}>
+										Log in Ngo
+									</Nav.Link>
+								</Link>
+
+								<Link to="/registerNgo">
+									<Nav.Link style={{ marginTop: "0.9px" }} eventKey={2} href="/">
+										Register NGO
+									</Nav.Link>
+								</Link>
+							</>
+						}
+
 						{name === "" ? (
 							<Link to="/login">
 								<Nav.Link style={{ marginTop: "0.9px" }} href="/">
