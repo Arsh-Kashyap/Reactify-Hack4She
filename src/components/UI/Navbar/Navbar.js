@@ -72,7 +72,50 @@ const NavbarComponent = () => {
 		localStorage.removeItem('ngoName');
 		setNgoName(null);
 	}
+	let showLinks;
+	if (!ngoName && !name) {
+		showLinks = (<>
+			<Link to="/loginNgo">
+				<Nav.Link style={{ marginTop: "0.9px" }} eventKey={2} href="/loginNgo">
+					Log in Ngo
+				</Nav.Link>
+			</Link>
+			<Link to="/login">
+				<Nav.Link style={{ marginTop: "0.9px" }} eventKey={3} href="/login">
+					Donor's Login
+			</Nav.Link>
+			</Link>
+		</>)
 
+	}
+	else if (ngoName && !name) {
+		showLinks = (<>
+			<Link to="/profile">
+				<Nav.Link style={{ marginTop: "0.9px" }} eventKey={4} href="/profile">
+					Profile
+		</Nav.Link>
+			</Link>
+			<Link>
+				<Nav.Link onClick={() => logOut()} style={{ marginTop: "0.9px" }} eventKey={1}>
+					Log out
+			</Nav.Link>
+			</Link>
+		</>)
+	}
+	else if (name && !ngoName) {
+		showLinks = (<>
+			<Link to="/profile">
+				<Nav.Link style={{ marginTop: "0.9px" }} eventKey={4} href="/profile">
+					Profile
+		</Nav.Link>
+			</Link><Nav.Link
+				style={{ marginTop: "0.9px", cursor: "default" }}
+				onClick={startLogOut}
+			>
+				Logout
+		</Nav.Link>
+		</>)
+	}
 	return (
 		<div>
 			<Navbar
@@ -95,37 +138,37 @@ const NavbarComponent = () => {
 				<Navbar.Collapse id="responsive-navbar-nav">
 					<Nav className="mr-auto"></Nav>
 					<Nav>
-						{name === "" ? (
+						<Link to="/about">
+							<Nav.Link style={{ marginTop: "0.9px" }} eventKey={0} href="/about">
+								About
+							</Nav.Link>
+						</Link>
+						{showLinks}
+						{/* {name === "" ? (
 							<p />
 						) : (
 							<Link to="/profile">
-								<Nav.Link style={{ marginTop: "0.9px" }} eventKey={2} href="/">
+								<Nav.Link style={{ marginTop: "0.9px" }} eventKey={4} href="/profile">
 									Profile
 								</Nav.Link>
 							</Link>
 						)}
 						<Link to="/about">
-							<Nav.Link style={{ marginTop: "0.9px" }} eventKey={2} href="/">
+							<Nav.Link style={{ marginTop: "0.9px" }} eventKey={0} href="/about">
 								About
 							</Nav.Link>
 						</Link>
 						{ngoName ?
-							<Link to="/registerNgo">
-								<Nav.Link onClick={() => logOut()} style={{ marginTop: "0.9px" }} eventKey={2}>
+							<Link>
+								<Nav.Link onClick={() => logOut()} style={{ marginTop: "0.9px" }} eventKey={1}>
 									Log out
 								</Nav.Link>
 							</Link>
 							:
 							<>
 								<Link to="/loginNgo">
-									<Nav.Link onClick={() => logOut()} style={{ marginTop: "0.9px" }} eventKey={2}>
+									<Nav.Link style={{ marginTop: "0.9px" }} eventKey={2} href="/loginNgo">
 										Log in Ngo
-									</Nav.Link>
-								</Link>
-
-								<Link to="/registerNgo">
-									<Nav.Link style={{ marginTop: "0.9px" }} eventKey={2} href="/">
-										Register NGO
 									</Nav.Link>
 								</Link>
 							</>
@@ -133,18 +176,18 @@ const NavbarComponent = () => {
 
 						{name === "" ? (
 							<Link to="/login">
-								<Nav.Link style={{ marginTop: "0.9px" }} href="/">
-									Login/Signup
+								<Nav.Link style={{ marginTop: "0.9px" }} eventKey={3} href="/login">
+									Donor's Login
 								</Nav.Link>
 							</Link>
-						) : (
+						) : ngoName ? null : (
 							<Nav.Link
 								style={{ marginTop: "0.9px", cursor: "default" }}
 								onClick={startLogOut}
 							>
 								Logout
 							</Nav.Link>
-						)}
+						)} */}
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>

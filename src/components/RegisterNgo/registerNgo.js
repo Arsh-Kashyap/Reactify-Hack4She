@@ -16,7 +16,7 @@ const FORM = (props) => {
     const [loginPassword, setLoginPassword] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
-    const donationItems=[];
+    const [donationItems, setDonationItems] = useState([]);
     // const [alerts, setAlerts] = useState(null);
     const login = (e) => {
         e.preventDefault();
@@ -28,12 +28,10 @@ const FORM = (props) => {
             "state": state,
             "donationItems": donationItems
         }
-        console.log(Ngo);
 
         axios.post('https://hooks-practce.firebaseio.com/Ngo.json', Ngo)
             .then(response => {
-                console.log("success");
-                localStorage.setItem('ngoName',loginUsername);
+                localStorage.setItem('ngoName', loginUsername);
                 window.location.assign('/');
                 // props.history.push('/');
             })
@@ -44,27 +42,28 @@ const FORM = (props) => {
     const pushDonationItems = (item) => {
         let flag = 0;
         donationItems.find((el) => {
-            if(el === item)
-            {
+            if (el === item) {
                 flag = 1;
                 return;
             }
         })
-        if(flag)
+        if (flag)
             return;
         let tempItems = [...donationItems];
         tempItems.push(item);
         setDonationItems(tempItems);
-        console.log(tempItems);
     }
     const deleteItems = (item_id) => {
-        let tempItems = donationItems.filter((item,id) => id!=item_id);
+        let tempItems = donationItems.filter((item, id) => id !== item_id);
         setDonationItems(tempItems);
     }
 
-    let listItems = donationItems.map((item,id) => {
-        return <span className = {classes.topictag} onClick={() => deleteItems(id)} key={id}>{item}</span>
+    let listItems = donationItems.map((item, id) => {
+        return <span className={classes.topictag} onClick={() => deleteItems(id)} key={id}>{item}</span>
     })
+    const onChangeHandler = () => {
+        props.history.push('/loginNgo');
+      }
     return (
         <div>
             <div>
@@ -90,11 +89,11 @@ const FORM = (props) => {
                         <br></br>
                         <Row style={{ justifyContent: "center" }}>
                             <DropdownButton id="dropdown-item-button" title="Donation Items">
-                                <Dropdown.Item onClick={() => pushDonationItems("Clothes")} as="button">Clothes</Dropdown.Item>
-                                <Dropdown.Item onClick={() => pushDonationItems("Food")} as="button">Food</Dropdown.Item>
-                                <Dropdown.Item onClick={() => pushDonationItems("Books")} as="button">Books</Dropdown.Item>
-                                <Dropdown.Item onClick={() => pushDonationItems("Tech stuff")} as="button">Tech stuff</Dropdown.Item>
-                                <Dropdown.Item onClick={() => pushDonationItems("Sanitation")} as="button">Sanitation</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Clothes")} as="div">Clothes</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Food")} as="div">Food</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Books")} as="div">Books</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Tech stuff")} as="div">Tech stuff</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Sanitation")} as="div">Sanitation</Dropdown.Item>
                             </DropdownButton>
                         </Row>
                         <hr></hr>
@@ -104,6 +103,9 @@ const FORM = (props) => {
                             <Button variant="success" type="submit" block className={classes.button}>
                                 Submit
                             </Button>
+                        </Row>
+                        <Row>
+                            <Button onClick={onChangeHandler} size="lg" block style={{ fontSize: "15px", width: "100%" }}>Back to Login</Button>
                         </Row>
                     </Col>
                 </Form>

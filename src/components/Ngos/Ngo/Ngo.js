@@ -2,7 +2,6 @@ import React, { useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import NgoContext from "../../../context/ngoContext";
-
 import classes from "./Ngo.module.css";
 import Carousel from "react-bootstrap/Carousel";
 import Row from "react-bootstrap/Row";
