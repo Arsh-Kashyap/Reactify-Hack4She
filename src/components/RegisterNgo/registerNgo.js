@@ -16,7 +16,7 @@ const FORM = (props) => {
     const [loginPassword, setLoginPassword] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
-    const [donationItems, setDonationItems] = useState([]);
+    const donationItems=[];
     // const [alerts, setAlerts] = useState(null);
     const login = (e) => {
         e.preventDefault();
