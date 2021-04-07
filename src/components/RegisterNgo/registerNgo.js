@@ -74,9 +74,6 @@ const FORM = (props) => {
                                 Submit
                             </Button>
                         </Row>
-                        <Row>
-                            <Button onClick={onChangeHandler} size="lg" block style={{ fontSize: "15px", width: "100%" }}>Switch to Employee Login</Button>
-                        </Row>
                     </Col>
                 </Form>
             </div>
