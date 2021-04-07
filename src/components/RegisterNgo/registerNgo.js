@@ -26,22 +26,49 @@ const FORM = (props) => {
             "password": loginPassword,
             "city": city,
             "state": state,
-            "donationItems":donationItems
+            "donationItems": donationItems
         }
         console.log(Ngo);
-        // axios.post('https://hooks-practce.firebaseio.com/Ngo.json', Ngo)
-        //     .then(response => {
-        //         console.log("success");
-        //         // props.history.push('/');
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     })
+
+        axios.post('https://hooks-practce.firebaseio.com/Ngo.json', Ngo)
+            .then(response => {
+                console.log("success");
+                localStorage.setItem('ngoName',loginUsername);
+                window.location.assign('/');
+                // props.history.push('/');
+            })
+            .catch(error => {
+                console.log(error);
+            })
     };
+    const pushDonationItems = (item) => {
+        let flag = 0;
+        donationItems.find((el) => {
+            if(el === item)
+            {
+                flag = 1;
+                return;
+            }
+        })
+        if(flag)
+            return;
+        let tempItems = [...donationItems];
+        tempItems.push(item);
+        setDonationItems(tempItems);
+        console.log(tempItems);
+    }
+    const deleteItems = (item_id) => {
+        let tempItems = donationItems.filter((item,id) => id!=item_id);
+        setDonationItems(tempItems);
+    }
+
+    let listItems = donationItems.map((item,id) => {
+        return <span className = {classes.topictag} onClick={() => deleteItems(id)} key={id}>{item}</span>
+    })
     return (
         <div>
             <div>
-                <h3 className={classes.head}>Login</h3>
+                <h3 className={classes.head}>NGO Register</h3>
                 <Form className={classes.addForm} onSubmit={(e) => login(e)} >
                     <Col>
                         <Row>
@@ -61,13 +88,17 @@ const FORM = (props) => {
                             <Form.Control required onChange={(event) => setState(event.target.value)} />
                         </Row>
                         <br></br>
-                        <Row style={{justifyContent:"center"}}>
-                            <DropdownButton  id="dropdown-item-button" title="Donation Items">
-                                <Dropdown.Item as="button">Pads</Dropdown.Item>
-                                <Dropdown.Item as="button">Domestic Items</Dropdown.Item>
-                                <Dropdown.Item as="button">Something else</Dropdown.Item>
+                        <Row style={{ justifyContent: "center" }}>
+                            <DropdownButton id="dropdown-item-button" title="Donation Items">
+                                <Dropdown.Item onClick={() => pushDonationItems("Clothes")} as="button">Clothes</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Food")} as="button">Food</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Books")} as="button">Books</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Tech stuff")} as="button">Tech stuff</Dropdown.Item>
+                                <Dropdown.Item onClick={() => pushDonationItems("Sanitation")} as="button">Sanitation</Dropdown.Item>
                             </DropdownButton>
                         </Row>
+                        <hr></hr>
+                        {listItems}
                         <hr></hr>
                         <Row>
                             <Button variant="success" type="submit" block className={classes.button}>

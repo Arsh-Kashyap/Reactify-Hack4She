@@ -35,18 +35,6 @@
 }
 
 .button{
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
-.topictag {
-    cursor: default;
-    text-align: center;
-    background: rgb(40, 55, 71);
-    color: white;
-    font-weight: 400;
-    border-radius: .25em;
-    padding: .25em;
-    margin: 0 .25em;
-    line-height: 2;
-    white-space: nowrap;
-}
