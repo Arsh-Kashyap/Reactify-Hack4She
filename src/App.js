@@ -11,6 +11,7 @@ import Donation from "./containers/donation/donation";
 import About from "./components/About/About";
 import SimpleForm from "./components/Chatbot/SimpleForm";
 import Profile from "./components/Profile/Profile";
+import RegisterNgo from './components/RegisterNgo/registerNgo';
 
 class App extends Component {
 	state = {
@@ -43,6 +44,7 @@ class App extends Component {
 										path="/Ngo/:id"
 										render={(props) => <Ngos {...props} />}
 									/>
+									<Route path="/registerNgo" component={RegisterNgo} />
 									<Route path="/donate/:id" component={Donation} />
 									<Route path="/about" component={About} />
 									<Route path="/profile" component={Profile} />

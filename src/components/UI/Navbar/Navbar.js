@@ -102,6 +102,11 @@ const NavbarComponent = () => {
 								About
 							</Nav.Link>
 						</Link>
+						<Link to="/registerNgo">
+							<Nav.Link style={{ marginTop: "0.9px" }} eventKey={2} href="/">
+								Register Ngo
+							</Nav.Link>
+						</Link>
 						{name === "" ? (
 							<Link to="/login">
 								<Nav.Link style={{ marginTop: "0.9px" }} href="/">

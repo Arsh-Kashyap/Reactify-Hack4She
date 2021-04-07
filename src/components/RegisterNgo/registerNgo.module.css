@@ -1,0 +1,40 @@
+.head{
+    text-align: center;
+    margin-top: 75px;
+}
+
+.addForm{
+    width: 30%;
+    margin: 15px auto;
+    height: 100%;
+    border: 1px solid rgb(221, 218, 218);
+    /* box-shadow: 0 4px 5px rgb(134, 133, 133); */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    padding: 16px;
+    text-align: center;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .addForm{
+        width:60%
+    }
+}
+    
+    
+@media screen and (max-width: 780px) {
+     .addForm{
+        width: 75%;
+    }
+}
+    
+    @media screen and (max-width: 573px) {
+     .addForm{
+        width: 80%;
+    }
+}
+
+.button{
+    margin: 10px 0;
+}
+
