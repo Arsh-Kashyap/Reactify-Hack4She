@@ -6,10 +6,10 @@ const cards = (props) => {
 	return (
 		<div>
 			<Container>
-				{props.ngos.map((ngo) => {
+				{props.ngos.map((ngo,id) => {
 					return (
 						<Card
-							key={ngo.name}
+							key={id}
 							name={ngo.name}
 							description={ngo.description}
 							fund={ngo.fund}

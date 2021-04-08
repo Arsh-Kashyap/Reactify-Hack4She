@@ -26,7 +26,9 @@ const FORM = (props) => {
             "password": loginPassword,
             "city": city,
             "state": state,
-            "donationItems": donationItems
+            "donationItems": donationItems,
+            "images":[],
+            "description":[],
         }
 
         axios.post('https://hooks-practce.firebaseio.com/Ngo.json', Ngo)

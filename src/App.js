@@ -13,7 +13,7 @@ import SimpleForm from "./components/Chatbot/SimpleForm";
 import Profile from "./components/Profile/Profile";
 import RegisterNgo from './components/RegisterNgo/registerNgo';
 import NgoLogin from './components/ngoLogin/ngoLogin';
-
+import NgoProfile from './components/Profile/NgoProfile';
 class App extends Component {
 	state = {
 		showChat: false,
@@ -50,6 +50,7 @@ class App extends Component {
 									<Route path="/about" exact component={About} />
 									<Route path="/loginNgo" exact component={NgoLogin} />
 									<Route path="/profile" component={Profile} />
+									<Route path="/ngoProfile" exact component={NgoProfile} />
 									<Route path="/" exact>
 										<Home />
 									</Route>
