@@ -1,7 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import NgoContext from "../../../context/ngoContext";
 import classes from "./Ngo.module.css";
 import Carousel from "react-bootstrap/Carousel";
 import Row from "react-bootstrap/Row";
@@ -12,58 +11,54 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 const Ngo = (props) => {
-	let ngoUse = useContext(NgoContext);
-	let ngo = ngoUse.ngo;
+	const images = ["https://tinyurl.com/y6q54o5z", "https://tinyurl.com/y6q54o5z", "https://tinyurl.com/y6q54o5z"];
+	const description = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+	const [sortedDonations, setSortedDonations] = useState([]);
+	const [totalFunding, setTotalFundinng] = useState(0);
+	const comp = (a, b) => {
+		const first = (parseInt(a['orderData']['amount']));
+		const second = (parseInt(b['orderData']['amount']))
+		return second - first;
+	}
 	useEffect(() => {
+		let funding = 0;
+		let donations = [];
 		axios
 			.get("https://hooks-practce.firebaseio.com/donations.json")
-			.then((response) => {
-				let ngoData = [...ngo];
-				var sortable = {
-					NGO1: [],
-					NGO2: [],
-					NGO3: [],
-				};
-				for (let key in response.data) {
-					sortable[response.data[key].ngo].push([
-						response.data[key].name,
-						+response.data[key].orderData.amount,
-					]);
+			.then(async (response) => {
+				for (const donation in response.data) {
+					if (response.data[donation]["ngo"] === props.name) {
+						donations.push(response.data[donation]);
+						funding += parseInt(response.data[donation]["orderData"]["amount"]);
+					}
 				}
-
-				for (let key in sortable) {
-					sortable[key].sort((a, b) => {
-						return b[1] - a[1];
-					});
-					const index = ngoData.findIndex((x) => x.name === key);
-					ngoData[index].sortedDonations = sortable[key];
-					ngoData[index].sortedDonations.splice(
-						5,
-						ngoData[index].sortedDonations.length - 1
-					);
-				}
-				ngoUse.setNgo(ngoData);
+				donations = donations.sort(comp);
+				donations.splice(5, donations.length - 1);
+				console.log(donations);
+				setSortedDonations(donations);
+				setTotalFundinng(funding);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	}, []);
 
-	const imageCarousel = props.info.images.map((ele, index) => (
+	const imageCarousel = images.map((ele, index) => (
 		<Carousel.Item key={index} interval={5000}>
-			<img className="d-block w-100" src={ele} alt={props.info.name} />
+			<img className="d-block w-100" src={ele} alt={props.name} />
 			<Carousel.Caption>
-				<h3>{props.info.name}</h3>
+				<h3>{props.name}</h3>
 			</Carousel.Caption>
 		</Carousel.Item>
 	));
-	const TopContributors = props.info.sortedDonations.map((ele, index) => {
+	const TopContributors = sortedDonations.map((ele, index) => {
 		return (
 			<ListGroupItem key={index}>
-				{ele[0]}: ₹{ele[1]}
+				{ele["name"]}: ₹{ele["orderData"]["amount"]}
 			</ListGroupItem>
 		);
 	});
+
 	return (
 		<div>
 			<Row>
@@ -71,23 +66,22 @@ const Ngo = (props) => {
 					<div className={classes.NgoCard}>
 						<Card bg="info" text="white">
 							<Card.Header className={classes.CardHeader}>
-								{props.info.name}
+								{props.name}
 							</Card.Header>
 							<Card.Body>
 								<Carousel>{imageCarousel}</Carousel>
 								<hr></hr>
-								<Card.Text>{props.info.description}</Card.Text>
+								<Card.Text>{description}</Card.Text>
 							</Card.Body>
 						</Card>
 						<hr></hr>
 
-						<Link to={"/donate/" + props.info.name}>
-							<Button  variant="outline-primary" size="lg" block>
-								Donate to make a difference
-							</Button>
-							<Button  variant="outline-danger" size="lg" block>
-								Request pads for your society
-							</Button>
+						<Link to={"/donate/" + props.name}>
+							{localStorage.getItem('ngoName') ? null :
+								<Button variant="outline-primary" size="lg" block>
+									Donate to make a difference
+								</Button>
+							}
 						</Link>
 
 						<hr></hr>
@@ -100,8 +94,8 @@ const Ngo = (props) => {
 						style={{ width: "18rem" }}
 					>
 						<Card.Header className={classes.SideCardHeader}>
-							<p>Total funding recieved: ₹{props.info.fund}</p>
-							<p>Pads Distibuted: {Math.floor(props.info.fund / 20)}</p>
+							<p>Total funding recieved: ₹{totalFunding}</p>
+							<p>Pads Distibuted: {Math.floor(totalFunding / 20)}</p>
 						</Card.Header>
 						<Card.Body>
 							<Card.Title>Top Contributions</Card.Title>

@@ -51,7 +51,7 @@ const FORM = (props) => {
               </Row>
               <Row>
                 <Form.Label>Password</Form.Label>
-                <Form.Control required onChange={(event) => setLoginPassword(event.target.value)} />
+                <Form.Control type = "password" required onChange={(event) => setLoginPassword(event.target.value)} />
               </Row>
               <Row>
                 <Button variant="success" type="submit" block className={classes.button}>

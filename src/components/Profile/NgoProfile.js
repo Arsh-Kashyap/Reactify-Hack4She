@@ -15,10 +15,11 @@ const Ngo = (props) => {
     const description = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
     const [sortedDonations, setSortedDonations] = useState([]);
     const [totalFunding, setTotalFundinng] = useState(0);
+    const [allDonations, setAllDonations] = useState([]);
     const comp = (a, b) => {
-        const first=  (parseInt(a['orderData']['amount']));
-        const second= (parseInt(b['orderData']['amount']))
-        return second-first;
+        const first = (parseInt(a['orderData']['amount']));
+        const second = (parseInt(b['orderData']['amount']))
+        return second - first;
     }
     useEffect(() => {
         let funding = 0;
@@ -33,7 +34,8 @@ const Ngo = (props) => {
                         funding += parseInt(response.data[donation]["orderData"]["amount"]);
                     }
                 }
-                donations=donations.sort(comp);
+                setAllDonations(donations);
+                donations = donations.sort(comp);
                 donations.splice(5, donations.length - 1);
 
                 setSortedDonations(donations);
@@ -43,7 +45,7 @@ const Ngo = (props) => {
                 console.log(error);
             });
     }, []);
-    
+
     const imageCarousel = images.map((ele, index) => (
         <Carousel.Item key={index} interval={5000}>
             <img className="d-block w-100" src={ele} alt={localStorage.getItem("ngoName")} />
@@ -59,6 +61,9 @@ const Ngo = (props) => {
             </ListGroupItem>
         );
     });
+    let allTransactions = allDonations.map(el => {
+        return <p>Name: {el.name} , Donation: {el.orderData.amount}</p>
+    })
     return (
         <div>
             <Row>
@@ -75,15 +80,6 @@ const Ngo = (props) => {
                             </Card.Body>
                         </Card>
                         <hr></hr>
-
-                        <Link to={"/donate/" + localStorage.getItem("ngoName")}>
-                            <Button variant="outline-primary" size="lg" block>
-                                Donate to make a difference
-							</Button>
-                            <Button variant="outline-danger" size="lg" block>
-                                Request pads for your society
-							</Button>
-                        </Link>
 
                         <hr></hr>
                     </div>
@@ -106,7 +102,8 @@ const Ngo = (props) => {
                         </Card.Body>
                     </Card>
                 </Col>
-            </Row>
+            </Row>     
+            {allTransactions} 
         </div>
     );
 };

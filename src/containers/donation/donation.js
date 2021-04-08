@@ -62,13 +62,13 @@ const Donation = (props) => {
     const history = useHistory();
 
     const userContext = useContext(UserContext);
-    const ngoContext = useContext(NgoContext);
+    // const ngoContext = useContext(NgoContext);
 
-    useEffect(() => {
-        if (userContext.uid.length === 0) {
-            history.push('/login');
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (userContext.uid.length === 0) {
+    //         history.push('/login');
+    //     }
+    // }, [])
 
     const orderHandler = (event) => {
         event.preventDefault();
@@ -79,15 +79,15 @@ const Donation = (props) => {
         }
         const order = {
             orderData: formData,
-            userId: userContext.uid,
+            userId: props.match.params.id,
             name: userContext.name,
             ngo: props.match.params.id
         }
         let index = +props.match.params.id[3];
         index = index - 1;
-        let ngoData = [...ngoContext.ngo];
-        ngoData[index].fund += (+donateForm.amount.value);
-        ngoContext.setNgo(ngoData);
+        // let ngoData = [...ngoContext.ngo];
+        // ngoData[index].fund += (+donateForm.amount.value);
+        // ngoContext.setNgo(ngoData);
         axios.post('https://hooks-practce.firebaseio.com/donations.json', order)
             .then(response => {
                 setLoading(true);

@@ -12,10 +12,15 @@ class Cards extends Component {
 				<Card className={classes.Card}>
 					<Card.Header as="h5">{this.props.name}</Card.Header>
 					<Card.Body>
-						<h6>Fund Raised: ₹ {this.props.fund} &nbsp; | &nbsp; Pads Distributed: { Math.floor(this.props.fund/20) } </h6>
+						<h6>Fund Raised: ₹ {this.props.fund} &nbsp; | &nbsp; Pads Distributed: {Math.floor(this.props.fund / 20)} </h6>
 						<Card.Text>{this.props.description}</Card.Text>
 
-						<Link to={str}>
+						<Link to={{
+							pathname: str,
+							state: {
+								fund: this.props.fund
+							}
+						}}>
 							<Button size="md" variant="info">
 								More Details
 							</Button>
