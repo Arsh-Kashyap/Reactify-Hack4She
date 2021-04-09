@@ -10,6 +10,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Input from '../../components/Input/Input';
 
 const Donation = (props) => {
+    const userContext = useContext(UserContext);
 
     const [donateForm, setDonateForm] = useState({
         name: {
@@ -18,7 +19,7 @@ const Donation = (props) => {
                 type: 'text',
                 placeholder: 'Your Name'
             },
-            value: '',
+            value: userContext.name,
             validation: {
                 required: true
             },
@@ -61,7 +62,6 @@ const Donation = (props) => {
 
     const history = useHistory();
 
-    const userContext = useContext(UserContext);
     // const ngoContext = useContext(NgoContext);
 
     // useEffect(() => {
