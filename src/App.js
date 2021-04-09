@@ -9,30 +9,18 @@ import { NgoProvider } from "./context/ngoContext";
 import Ngos from "./components/Ngos/Ngos";
 import Donation from "./containers/donation/donation";
 import About from "./components/About/About";
-import SimpleForm from "./components/Chatbot/SimpleForm";
 import Profile from "./components/Profile/Profile";
 import RegisterNgo from './components/RegisterNgo/registerNgo';
 import NgoLogin from './components/ngoLogin/ngoLogin';
 import NgoProfile from './components/Profile/NgoProfile';
-class App extends Component {
-	state = {
-		showChat: false,
-	};
-	startChat = () => {
-		this.setState({ showChat: true });
-	};
 
-	hideChat = () => {
-		this.setState({ showChat: false });
-	};
+class App extends Component {
+	
 	render() {
-		let Classes = [classes.App];
-		if (this.state.showChat) {
-			Classes.push(classes.blur);
-		}
+		
 		return (
 			<div>
-				<div className={Classes.join(" ")}>
+				<div className={classes.App}>
 					<UserProvider>
 						<NgoProvider>
 							<Router>
@@ -58,23 +46,6 @@ class App extends Component {
 							</Router>
 						</NgoProvider>
 					</UserProvider>
-				</div>
-				<div className={classes.bot}>
-					<div style={{ display: this.state.showChat ? "" : "none" }}>
-						<SimpleForm></SimpleForm>
-					</div>
-					{/* <div> {showChat ? <SimpleForm></SimpleForm> : null} </div> */}
-					<div>
-						{!this.state.showChat ? (
-							<button className={classes.btn} onClick={() => this.startChat()}>
-								click to chat...{" "}
-							</button>
-						) : (
-							<button className={classes.btn} onClick={() => this.hideChat()}>
-								click to hide...{" "}
-							</button>
-						)}
-					</div>
 				</div>
 			</div>
 		);
