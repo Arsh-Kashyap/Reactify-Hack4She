@@ -9,8 +9,18 @@ import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import SimpleForm from "../../Chatbot/SimpleForm";
+
 
 const Ngo = (props) => {
+	const [showChat, setShowChat]=useState(false);
+	const startChat=()=>{
+		setShowChat(true);
+	}
+	const hideChat=()=>{
+		setShowChat(false);
+	}
+	
 	const images = ["https://tinyurl.com/y6q54o5z", "https://tinyurl.com/y6q54o5z", "https://tinyurl.com/y6q54o5z"];
 	const description = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
 	const [sortedDonations, setSortedDonations] = useState([]);
@@ -58,10 +68,13 @@ const Ngo = (props) => {
 			</ListGroupItem>
 		);
 	});
-
+	let Classes = [classes.App];
+		if (showChat) {
+			Classes.push(classes.blur);
+		}
 	return (
-		<div>
-			<Row>
+		<div >
+			<Row className={Classes.join(" ")}>
 				<Col lg={8} sm={12}>
 					<div className={classes.NgoCard}>
 						<Card bg="info" text="white">
@@ -106,6 +119,23 @@ const Ngo = (props) => {
 					</Card>
 				</Col>
 			</Row>
+			<div className={classes.bot}>
+					<div style={{ display: showChat ? "" : "none" }}>
+						<SimpleForm></SimpleForm>
+					</div>
+					{/* <div> {showChat ? <SimpleForm></SimpleForm> : null} </div> */}
+					<div>
+						{!showChat ? (
+							<button className={classes.btn} onClick={() => startChat()}>
+								click to chat...{" "}
+							</button>
+						) : (
+							<button className={classes.btn} onClick={() => hideChat()}>
+								click to hide...{" "}
+							</button>
+						)}
+					</div>
+				</div>
 		</div>
 	);
 };
