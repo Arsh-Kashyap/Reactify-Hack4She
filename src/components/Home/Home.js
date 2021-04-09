@@ -137,7 +137,7 @@ const Home = () => {
           <input
             type="text"
             id="search-bar"
-            placeholder="Search NGO"
+            placeholder="Search Location"
             value={locSearch}
             onChange={handleLocSearch}
           ></input>
