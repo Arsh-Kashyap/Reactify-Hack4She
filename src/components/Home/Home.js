@@ -7,7 +7,8 @@ import "./Home.css";
 
 const Home = () => {
   const [ngoData, setNgoData] = useState("");
-  const [search, setSearch] = useState("");
+  const [ngoSearch, setNgoSearch] = useState("");
+  const [locSearch, setLocSearch] = useState("");
   const [displayData, setDisplayData] = useState("");
 
   useEffect(() => {
@@ -62,22 +63,54 @@ const Home = () => {
     return false;
   };
 
-  const handleSearch = (e) => {
-    setSearch(() => e.target.value);
-    const toSearch=e.target.value;
-    if (toSearch !== "") {
+  const filterSearch = (ngo,loc) => {
+    if (ngo && loc) {
       setDisplayData(
         ngoData.filter((n) => {
           return (
-            n.name.toLowerCase().includes(toSearch.toLowerCase()) ||
-            n.city.toLowerCase().includes(toSearch.toLowerCase()) ||
-            n.state.toLowerCase().includes(toSearch.toLowerCase()) ||
-            hasDonation(n.don, toSearch.toLowerCase())
+            n.name.toLowerCase().includes(ngo.toLowerCase()) &&
+            (n.city.toLowerCase().includes(loc.toLowerCase()) ||
+            n.state.toLowerCase().includes(loc.toLowerCase()))
+            // hasDonation(n.don, toSearch.toLowerCase())
           );
         })
       );
     }
- };
+    else if(ngo)
+    {
+      setDisplayData(
+        ngoData.filter((n) => {
+          return (
+            n.name.toLowerCase().includes(ngo.toLowerCase())
+          );
+        })
+      );
+    }
+    else if(loc)
+    {
+      setDisplayData(
+        ngoData.filter((n) => {
+          return (
+            (n.city.toLowerCase().includes(loc.toLowerCase()) ||
+            n.state.toLowerCase().includes(loc.toLowerCase()))
+            // hasDonation(n.don, toSearch.toLowerCase())
+          );
+        })
+      );
+    }
+    else
+      setDisplayData(ngoData);
+  }
+
+  const handleNgoSearch = (e) => {
+    setNgoSearch(() => e.target.value);
+    filterSearch(e.target.value,locSearch);
+  };
+
+  const handleLocSearch = (e) => {
+    setLocSearch(() => e.target.value);
+    filterSearch(ngoSearch,e.target.value);
+  };
 
   return (
     <div>
@@ -89,8 +122,24 @@ const Home = () => {
             type="text"
             id="search-bar"
             placeholder="Search NGO"
-            value={search}
-            onChange={handleSearch}
+            value={ngoSearch}
+            onChange={handleNgoSearch}
+          ></input>
+          <a href="#">
+            <img
+              class="search-icon"
+              src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"
+              alt="search"
+            />
+          </a>
+        </Col>
+        <Col>
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search NGO"
+            value={locSearch}
+            onChange={handleLocSearch}
           ></input>
           <a href="#">
             <img
