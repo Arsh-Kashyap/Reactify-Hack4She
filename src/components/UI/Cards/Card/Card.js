@@ -10,7 +10,9 @@ class Cards extends Component {
 		return (
 			<div>
 				<Card className={classes.Card}>
-					<Card.Header as="h5">{this.props.name}</Card.Header>
+					<Card.Header as="h5">{this.props.name}
+					<span className={classes.location}>{this.props.city}, {this.props.state} <img src="https://img.icons8.com/ios-glyphs/30/000000/marker--v2.png"/></span>
+					</Card.Header>
 					<Card.Body>
 						<h6>Fund Raised: ₹ {this.props.fund} &nbsp; | &nbsp; Pads Distributed: {Math.floor(this.props.fund / 20)} </h6>
 						<Card.Text>{this.props.description}</Card.Text>

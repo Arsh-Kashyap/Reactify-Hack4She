@@ -3,7 +3,11 @@
 	width: 65%;
 	box-shadow: 2px 2px 4px #30ffe7;
 }
-
+.location{
+	float: right;
+	font-size: 1.2rem;
+	color: rgba(0, 0, 0, 0.5);
+}
 @media (max-width: 1200px) {
 	.Card {
 		width: 90%;

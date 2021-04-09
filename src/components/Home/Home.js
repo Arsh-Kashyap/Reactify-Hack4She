@@ -54,7 +54,6 @@ const Home = () => {
         console.log(error);
       });
   }, []);
-
   const hasDonation = (don, search) => {
     if (!Array.isArray(don)) return false;
     for (var d of don) {
