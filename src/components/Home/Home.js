@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-import NgoContext from "../../context/ngoContext";
 import Carousel from "../UI/Carousel/Carousel";
 import Cards from "../UI/Cards/Cards";
 import axios from "axios";
@@ -66,19 +64,20 @@ const Home = () => {
 
   const handleSearch = (e) => {
     setSearch(() => e.target.value);
-    if (search !== "") {
+    const toSearch=e.target.value;
+    if (toSearch !== "") {
       setDisplayData(
         ngoData.filter((n) => {
           return (
-            n.name.toLowerCase().includes(search.toLowerCase()) ||
-            n.city.toLowerCase().includes(search.toLowerCase()) ||
-            n.state.toLowerCase().includes(search.toLowerCase()) ||
-            hasDonation(n.don, search.toLowerCase())
+            n.name.toLowerCase().includes(toSearch.toLowerCase()) ||
+            n.city.toLowerCase().includes(toSearch.toLowerCase()) ||
+            n.state.toLowerCase().includes(toSearch.toLowerCase()) ||
+            hasDonation(n.don, toSearch.toLowerCase())
           );
         })
       );
     }
-  };
+ };
 
   return (
     <div>
