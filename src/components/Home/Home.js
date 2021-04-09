@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Carousel from "../UI/Carousel/Carousel";
 import Cards from "../UI/Cards/Cards";
 import axios from "axios";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Dropdown, DropdownButton } from "react-bootstrap";
+import classes from "../RegisterNgo/registerNgo.module.css";
 import "./Home.css";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
   const [ngoSearch, setNgoSearch] = useState("");
   const [locSearch, setLocSearch] = useState("");
   const [displayData, setDisplayData] = useState("");
+  const [donationItems, setDonationItems] = useState([]);
 
   useEffect(() => {
     axios
@@ -53,67 +55,136 @@ const Home = () => {
         console.log(error);
       });
   }, []);
-  const hasDonation = (don, search) => {
+
+  const hasDonation = (don, donation) => {
     if (!Array.isArray(don)) return false;
     for (var d of don) {
-      if (d.toLowerCase().includes(search)) {
-        return true;
+      for (var f of donation) {
+        if (d.toLowerCase().includes(f.toLowerCase())) {
+          return true;
+        }
       }
     }
     return false;
   };
 
-  const filterSearch = (ngo,loc) => {
+  const filterSearch = (ngo, loc) => {
     if (ngo && loc) {
-      setDisplayData(
-        ngoData.filter((n) => {
-          return (
-            n.name.toLowerCase().includes(ngo.toLowerCase()) &&
-            (n.city.toLowerCase().includes(loc.toLowerCase()) ||
-            n.state.toLowerCase().includes(loc.toLowerCase()))
-            // hasDonation(n.don, toSearch.toLowerCase())
-          );
-        })
-      );
-    }
-    else if(ngo)
-    {
-      setDisplayData(
-        ngoData.filter((n) => {
-          return (
-            n.name.toLowerCase().includes(ngo.toLowerCase())
-          );
-        })
-      );
-    }
-    else if(loc)
-    {
-      setDisplayData(
-        ngoData.filter((n) => {
-          return (
-            (n.city.toLowerCase().includes(loc.toLowerCase()) ||
-            n.state.toLowerCase().includes(loc.toLowerCase()))
-            // hasDonation(n.don, toSearch.toLowerCase())
-          );
-        })
-      );
-    }
-    else
+      if (Array.isArray(donationItems) && donationItems.length > 0) {
+        setDisplayData(
+          ngoData.filter((n) => {
+            return (
+              n.name.toLowerCase().includes(ngo.toLowerCase()) &&
+              (n.city.toLowerCase().includes(loc.toLowerCase()) ||
+                n.state.toLowerCase().includes(loc.toLowerCase())) &&
+              hasDonation(n.don, donationItems)
+            );
+          })
+        );
+      } else {
+        setDisplayData(
+          ngoData.filter((n) => {
+            return (
+              n.name.toLowerCase().includes(ngo.toLowerCase()) &&
+              (n.city.toLowerCase().includes(loc.toLowerCase()) ||
+                n.state.toLowerCase().includes(loc.toLowerCase()))
+              // hasDonation(n.don, toSearch.toLowerCase())
+            );
+          })
+        );
+      }
+    } else if (ngo) {
+      if (Array.isArray(donationItems) && donationItems.length > 0) {
+        setDisplayData(
+          ngoData.filter((n) => {
+            return (
+              n.name.toLowerCase().includes(ngo.toLowerCase()) &&
+              hasDonation(n.don, donationItems)
+            );
+          })
+        );
+      } else {
+        setDisplayData(
+          ngoData.filter((n) => {
+            return n.name.toLowerCase().includes(ngo.toLowerCase());
+          })
+        );
+      }
+    } else if (loc) {
+      if (Array.isArray(donationItems) && donationItems.length > 0) {
+        setDisplayData(
+          ngoData.filter((n) => {
+            return (
+              (n.city.toLowerCase().includes(loc.toLowerCase()) ||
+                n.state.toLowerCase().includes(loc.toLowerCase())) &&
+              hasDonation(n.don, donationItems)
+            );
+          })
+        );
+      } else {
+        setDisplayData(
+          ngoData.filter((n) => {
+            return (
+              n.city.toLowerCase().includes(loc.toLowerCase()) ||
+              n.state.toLowerCase().includes(loc.toLowerCase())
+              // hasDonation(n.don, toSearch.toLowerCase())
+            );
+          })
+        );
+      }
+    } else {
+      if (Array.isArray(donationItems) && donationItems.length > 0) {
+        setDisplayData(
+          ngoData.filter((n) => hasDonation(n.don, donationItems))
+        );
+      }
       setDisplayData(ngoData);
-  }
+    }
+  };
 
   const handleNgoSearch = (e) => {
     setNgoSearch(() => e.target.value);
-    filterSearch(e.target.value,locSearch);
+    filterSearch(e.target.value, locSearch);
   };
 
   const handleLocSearch = (e) => {
     setLocSearch(() => e.target.value);
-    filterSearch(ngoSearch,e.target.value);
+    filterSearch(ngoSearch, e.target.value);
   };
+
+  const pushDonationItems = (item) => {
+    let flag = 0;
+    donationItems.find((el) => {
+      if (el === item) {
+        flag = 1;
+        return;
+      }
+    });
+    if (flag) return;
+    let tempItems = [...donationItems];
+    tempItems.push(item);
+    setDonationItems(tempItems);
+  };
+  const deleteItems = (item_id) => {
+    let tempItems = donationItems.filter((item, id) => id !== item_id);
+    setDonationItems(tempItems);
+  };
+
+  let listItems = donationItems.map((item, id) => {
+    return (
+      <span
+        className={classes.topictag}
+        onClick={() => deleteItems(id)}
+        key={id}
+      >
+        {item}
+      </span>
+    );
+  });
 
   return (
     <div>
+      {console.log(donationItems)}
       <Carousel />
       <Row style={{ margin: "20px", maxHeight: "50px" }}>
         <Col xs={1} md={3}></Col>
@@ -150,6 +221,36 @@ const Home = () => {
           </a>
         </Col>
         <Col xs={1} md={3}></Col>
+      </Row>
+      <Row style={{ justifyContent: "center" }}>
+        <DropdownButton id="dropdown-item-button" title="Donation Items">
+          <Dropdown.Item onClick={() => pushDonationItems("Clothes")} as="div">
+            Clothes
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => pushDonationItems("Food")} as="div">
+            Food
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => pushDonationItems("Books")} as="div">
+            Books
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => pushDonationItems("Tech stuff")}
+            as="div"
+          >
+            Tech stuff
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => pushDonationItems("Sanitation")}
+            as="div"
+          >
+            Sanitation
+          </Dropdown.Item>
+        </DropdownButton>
+      </Row>
+      <Row style={{ justifyContent: "center", marginTop: "15px" }}>
+        <hr></hr>
+        {listItems}
+        <hr></hr>
       </Row>
       {displayData ? <Cards ngos={displayData} /> : null}
     </div>
