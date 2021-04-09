@@ -72,9 +72,11 @@ const Ngo = (props) => {
 		if (showChat) {
 			Classes.push(classes.blur);
 		}
+	let whatToShow=()=> hideChat();
+	if(showChat===false) whatToShow=null;
 	return (
 		<div >
-			<Row className={Classes.join(" ")}>
+			<Row className={Classes.join(" ")} onClick={()=>whatToShow()}>
 				<Col lg={8} sm={12}>
 					<div className={classes.NgoCard}>
 						<Card bg="info" text="white">
@@ -120,7 +122,7 @@ const Ngo = (props) => {
 				</Col>
 			</Row>
 			<div className={classes.bot}>
-					<div style={{ display: showChat ? "" : "none" }}>
+					<div className={classes.Form} style={{ display: showChat ? "" : "none" }}>
 						<SimpleForm></SimpleForm>
 					</div>
 					{/* <div> {showChat ? <SimpleForm></SimpleForm> : null} </div> */}
@@ -130,9 +132,7 @@ const Ngo = (props) => {
 								click to chat...{" "}
 							</button>
 						) : (
-							<button className={classes.btn} onClick={() => hideChat()}>
-								click to hide...{" "}
-							</button>
+							null
 						)}
 					</div>
 				</div>

@@ -27,15 +27,14 @@
     z-index: 1000;
     opacity: 1;
     outline: none;
-  }
-  
+  } 
   .btn {
-    font-size: 20px;
+    font-size: 18px;
     float: right;
     color:white;
     border: 1px solid white;
-    height:70%!important;
-    width: 50%;
+    height:50%!important;
+    width: 45%;
     text-align:center;
     margin:8px;
     padding:40px;
