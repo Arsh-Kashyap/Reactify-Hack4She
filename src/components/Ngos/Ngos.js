@@ -8,7 +8,7 @@ const Ngos = (props) => {
     const index=ngo.findIndex(x => x.name === id)
     return (
         <div>
-            <Ngo name = {props.match.params.id} fund = {props.location.state.fund}/>
+            <Ngo name = {props.match.params.id} fund = {props.location.state.fund} donations={props.location.state.donations}/>
         </div>
     );
 }

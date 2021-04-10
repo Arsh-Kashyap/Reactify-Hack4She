@@ -20,7 +20,8 @@ class Cards extends Component {
 						<Link to={{
 							pathname: str,
 							state: {
-								fund: this.props.fund
+								fund: this.props.fund,
+								donations:this.props.donations
 							}
 						}}>
 							<Button size="md" variant="info">

@@ -52,7 +52,9 @@ const Ngo = (props) => {
 				console.log(error);
 			});
 	}, []);
-
+	const donations=props.donations?props.donations.map((ele,id)=>(
+		<span className={classes.donations} key={id}>{ele}</span>
+	)):null;
 	const imageCarousel = images.map((ele, index) => (
 		<Carousel.Item key={index} interval={5000}>
 			<img className="d-block w-100" src={ele} alt={props.name} />
@@ -86,7 +88,10 @@ const Ngo = (props) => {
 							<Card.Body>
 								<Carousel>{imageCarousel}</Carousel>
 								<hr></hr>
-								<Card.Text>{description}</Card.Text>
+								<Card.Text>
+									<p>{description}</p>
+									<div>{donations}</div>
+								</Card.Text>
 							</Card.Body>
 						</Card>
 						<hr></hr>

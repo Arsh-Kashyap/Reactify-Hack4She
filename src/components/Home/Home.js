@@ -184,7 +184,6 @@ const Home = () => {
 
   return (
     <div>
-      {console.log(donationItems)}
       <Carousel />
       <Row style={{ margin: "20px", maxHeight: "50px" }}>
         <Col xs={1} md={3}></Col>
