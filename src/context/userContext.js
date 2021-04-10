@@ -8,7 +8,6 @@ export const UserProvider = (props) => {
 	const [amount, setAmount] = useState("");
 	const [transactions, setTransactions] = useState([]);
 	const [loading, setLoading] = useState(true);
-
 	return (
 		<userContext.Provider
 			value={{

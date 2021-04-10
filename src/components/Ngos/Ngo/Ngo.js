@@ -44,7 +44,6 @@ const Ngo = (props) => {
 				}
 				donations = donations.sort(comp);
 				donations.splice(5, donations.length - 1);
-				console.log(donations);
 				setSortedDonations(donations);
 				setTotalFundinng(funding);
 			})
@@ -75,7 +74,6 @@ const Ngo = (props) => {
 			Classes.push(classes.blur);
 		}
 	let whatToShow=()=> hideChat();
-	if(showChat===false) whatToShow=null;
 	if(showChat===false) whatToShow=()=>null;
 	return (
 		<div >

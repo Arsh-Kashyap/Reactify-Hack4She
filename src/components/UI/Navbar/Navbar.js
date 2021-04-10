@@ -22,7 +22,8 @@ const NavbarComponent = () => {
 		setLoading,
 	} = useContext(userContext);
 
-	const startLogOut = () => firebase.auth().signOut();
+		
+	const startLogOut = () => {localStorage.removeItem('username');firebase.auth().signOut()};
 	useEffect(() => {
 		setNgoName(localStorage.getItem('ngoName'));
 		firebase.auth().onAuthStateChanged(async (user) => {

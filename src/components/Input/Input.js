@@ -2,14 +2,23 @@ import React from 'react';
 import classes from './Input.module.css';
 
 const input = (props) => {
+    
     let inputElement = null;
     let inputClass = [classes.InputElement];
     if(props.invalid && props.shouldValidate && props.touched)
         inputClass.push(classes.Invalid)
-
+        let isDisabled=false;
+        if(props.disabled)
+        {
+            inputClass.push(classes.disabledClass)
+            isDisabled=true;
+        }
     switch(props.elementType){
+        
+        
         case ('input'):
-            inputElement = <input 
+            inputElement = <input
+                disabled={isDisabled} 
                 className={inputClass.join(' ')} 
                 {...props.elementConfig} 
                 value={props.value}
