@@ -57,7 +57,6 @@ const Home = () => {
   }, []);
 
   const hasDonation = (don, donation) => {
-    console.log("reached here");
     if (!Array.isArray(don)) return false;
     for (var d of don) {
       for (var f of donation) {
@@ -135,7 +134,6 @@ const Home = () => {
       }
     } else {
       if (Array.isArray(tempItems) && tempItems.length > 0) {
-        console.log("here");
         setDisplayData(
           ngoData.filter((n) => hasDonation(n.don, tempItems))
         );
