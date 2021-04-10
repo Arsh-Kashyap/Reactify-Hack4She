@@ -8,10 +8,9 @@ class Cards extends Component {
 	render() {
 		console.log(this.props.donationItems);
 		let items;
-		if(this.props.donationItems)
-		{
-			items = this.props.donationItems.map((el,id) => {
-				if(id === this.props.donationItems.length-1)
+		if (this.props.donationItems) {
+			items = this.props.donationItems.map((el, id) => {
+				if (id === this.props.donationItems.length - 1)
 					return <span>{el} </span>;
 				return <span>{el}, </span>;
 			})
@@ -26,7 +25,9 @@ class Cards extends Component {
 					<Card.Body>
 						<h6>Fund Raised: ₹ {this.props.fund} &nbsp; </h6>
 						<Card.Text>{this.props.description}</Card.Text>
-						<Card.Text style={{fontSize: "1.1rem", fontWeight: "500"}}>Donation Items: {items}</Card.Text>
+						{items && items.length > 0 ?
+							<Card.Text style={{ fontSize: "1.1rem", fontWeight: "500" }}>Donation Items: {items}</Card.Text>
+							: null}
 						<Link to={{
 							pathname: str,
 							state: {

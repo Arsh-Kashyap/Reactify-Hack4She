@@ -93,7 +93,7 @@ const NavbarComponent = () => {
 		showLinks = (<>
 			<Link to="/ngoProfile">
 				<Nav.Link style={{ marginTop: "0.9px" }} eventKey={4} href="/ngoProfile">
-					Profile
+					Ngo's Profile
 		</Nav.Link>
 			</Link>
 			<Link>
@@ -107,7 +107,7 @@ const NavbarComponent = () => {
 		showLinks = (<>
 			<Link to="/profile">
 				<Nav.Link style={{ marginTop: "0.9px" }} eventKey={4} href="/profile">
-					Profile
+					Donor's Profile
 		</Nav.Link>
 			</Link><Nav.Link
 				style={{ marginTop: "0.9px", cursor: "default" }}
