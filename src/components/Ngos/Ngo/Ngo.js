@@ -76,6 +76,7 @@ const Ngo = (props) => {
 		}
 	let whatToShow=()=> hideChat();
 	if(showChat===false) whatToShow=null;
+	if(showChat===false) whatToShow=()=>null;
 	return (
 		<div >
 			<Row className={Classes.join(" ")} onClick={()=>whatToShow()}>

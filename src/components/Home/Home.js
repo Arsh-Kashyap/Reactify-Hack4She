@@ -186,7 +186,6 @@ const Home = () => {
       </span>
     );
   });
-
   return (
     <div>
       <Carousel />
