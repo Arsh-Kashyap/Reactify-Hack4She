@@ -17,13 +17,14 @@ const Donation = (props) => {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Your Name'
+                placeholder: localStorage.getItem('username')
             },
-            value: userContext.name,
+            value: localStorage.getItem('username')
+            ,
             validation: {
                 required: true
             },
-            isValid: false,
+            isValid: true,
             touched: false
         },
         amount: {
@@ -88,6 +89,7 @@ const Donation = (props) => {
         // let ngoData = [...ngoContext.ngo];
         // ngoData[index].fund += (+donateForm.amount.value);
         // ngoContext.setNgo(ngoData);
+        
         axios.post('https://hooks-practce.firebaseio.com/donations.json', order)
             .then(response => {
                 setLoading(true);
@@ -150,6 +152,10 @@ const Donation = (props) => {
             config: donateForm[key]
         })
     }
+    if(userContext.name)
+    {
+        localStorage.setItem('username',userContext.name);
+    }
 
     let form = (
         <div>
@@ -158,6 +164,7 @@ const Donation = (props) => {
                 {formArray.map(formEl => {
                     return <Input
                         key={formEl.id}
+                        disabled={formEl.id === "name"}
                         elementType={formEl.config.elementType}
                         elementConfig={formEl.config.elementConfig}
                         value={formEl.config.value}

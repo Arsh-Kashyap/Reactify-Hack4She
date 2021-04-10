@@ -9,7 +9,11 @@
     display: block;
     margin-bottom: 8px;
 }
-
+.disabledClass{
+    cursor: not-allowed;
+  pointer-events: all !important;
+  opacity: 0.5;
+}
 .InputElement {
     outline: none;
     border: 1px solid #ccc;
