@@ -57,6 +57,7 @@ const Home = () => {
   }, []);
 
   const hasDonation = (don, donation) => {
+    console.log("reached here");
     if (!Array.isArray(don)) return false;
     for (var d of don) {
       for (var f of donation) {
@@ -68,16 +69,16 @@ const Home = () => {
     return false;
   };
 
-  const filterSearch = (ngo, loc) => {
+  const filterSearch = (ngo, loc,tempItems) => {
     if (ngo && loc) {
-      if (Array.isArray(donationItems) && donationItems.length > 0) {
+      if (Array.isArray(tempItems) && tempItems.length > 0) {
         setDisplayData(
           ngoData.filter((n) => {
             return (
               n.name.toLowerCase().includes(ngo.toLowerCase()) &&
               (n.city.toLowerCase().includes(loc.toLowerCase()) ||
                 n.state.toLowerCase().includes(loc.toLowerCase())) &&
-              hasDonation(n.don, donationItems)
+              hasDonation(n.don, tempItems)
             );
           })
         );
@@ -94,12 +95,12 @@ const Home = () => {
         );
       }
     } else if (ngo) {
-      if (Array.isArray(donationItems) && donationItems.length > 0) {
+      if (Array.isArray(tempItems) && tempItems.length > 0) {
         setDisplayData(
           ngoData.filter((n) => {
             return (
               n.name.toLowerCase().includes(ngo.toLowerCase()) &&
-              hasDonation(n.don, donationItems)
+              hasDonation(n.don, tempItems)
             );
           })
         );
@@ -111,13 +112,13 @@ const Home = () => {
         );
       }
     } else if (loc) {
-      if (Array.isArray(donationItems) && donationItems.length > 0) {
+      if (Array.isArray(tempItems) && tempItems.length > 0) {
         setDisplayData(
           ngoData.filter((n) => {
             return (
               (n.city.toLowerCase().includes(loc.toLowerCase()) ||
                 n.state.toLowerCase().includes(loc.toLowerCase())) &&
-              hasDonation(n.don, donationItems)
+              hasDonation(n.don, tempItems)
             );
           })
         );
@@ -133,23 +134,24 @@ const Home = () => {
         );
       }
     } else {
-      if (Array.isArray(donationItems) && donationItems.length > 0) {
+      if (Array.isArray(tempItems) && tempItems.length > 0) {
+        console.log("here");
         setDisplayData(
-          ngoData.filter((n) => hasDonation(n.don, donationItems))
+          ngoData.filter((n) => hasDonation(n.don, tempItems))
         );
       }
-      setDisplayData(ngoData);
+      else setDisplayData(ngoData);
     }
   };
 
   const handleNgoSearch = (e) => {
     setNgoSearch(() => e.target.value);
-    filterSearch(e.target.value, locSearch);
+    filterSearch(e.target.value, locSearch,donationItems);
   };
 
   const handleLocSearch = (e) => {
     setLocSearch(() => e.target.value);
-    filterSearch(ngoSearch, e.target.value);
+    filterSearch(ngoSearch, e.target.value,donationItems);
   };
 
   const pushDonationItems = (item) => {
@@ -164,10 +166,13 @@ const Home = () => {
     let tempItems = [...donationItems];
     tempItems.push(item);
     setDonationItems(tempItems);
+    filterSearch(ngoSearch,locSearch,tempItems);
+
   };
   const deleteItems = (item_id) => {
     let tempItems = donationItems.filter((item, id) => id !== item_id);
     setDonationItems(tempItems);
+    filterSearch(ngoSearch,locSearch,tempItems);
   };
 
   let listItems = donationItems.map((item, id) => {
