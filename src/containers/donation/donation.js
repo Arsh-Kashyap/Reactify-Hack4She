@@ -43,20 +43,6 @@ const Donation = (props) => {
             },
             isValid: false,
             touched: false
-        },
-        email: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'email',
-                placeholder: 'Your E-mail'
-            },
-            value: '',
-            validation: {
-                required: true,
-                isEmail: true
-            },
-            isValid: false,
-            touched: false
         }
     });
     const [isFormValid, setIsFormValid] = useState(false);
