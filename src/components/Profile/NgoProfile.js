@@ -26,7 +26,8 @@ const Ngo = (props) => {
     const second = parseInt(b["orderData"]["amount"]);
     return second - first;
   };
-  useEffect(() => {
+
+  useEffect(async() => {
     let funding = 0;
     let donations = [];
     axios
@@ -40,7 +41,9 @@ const Ngo = (props) => {
             funding += parseInt(response.data[donation]["orderData"]["amount"]);
           }
         }
-        setAllDonations(donations);
+        donations.reverse();
+        let temp =await donations;
+        setAllDonations(temp);
         donations = donations.sort(comp);
         donations.splice(5, donations.length - 1);
 
