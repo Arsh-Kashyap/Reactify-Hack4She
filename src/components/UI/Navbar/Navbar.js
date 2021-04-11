@@ -128,7 +128,16 @@ const NavbarComponent = () => {
 			>
 				<Link to="/">
 					<Navbar.Brand href="/">
+<<<<<<< HEAD
 						<strong>Bestowed</strong>
+=======
+						<img
+							style={{ height: "30px", marginRight:"10px" }}
+							
+							src="https://www.flaticon.com/svg/vstatic/svg/328/328032.svg?token=exp=1618124173~hmac=0ed60bed02d58850b007bba8e7cedecd"
+						/>{"  "}
+						<strong>Paddify</strong>
+>>>>>>> a9a80d90af19e37863e28b9fece98be9f770d40c
 					</Navbar.Brand>
 				</Link>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
