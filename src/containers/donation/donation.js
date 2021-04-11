@@ -8,6 +8,7 @@ import classes from './donation.module.css';
 import axios from 'axios';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Input from '../../components/Input/Input';
+import StripeCheckout from 'react-stripe-checkout';
 
 const Donation = (props) => {
     const userContext = useContext(UserContext);
@@ -72,7 +73,8 @@ const Donation = (props) => {
     // }, [])
 
     const orderHandler = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
+        console.log("in");
         setLoading(true);
         const formData = {}
         for (let inputType in donateForm) {
@@ -89,7 +91,7 @@ const Donation = (props) => {
         // let ngoData = [...ngoContext.ngo];
         // ngoData[index].fund += (+donateForm.amount.value);
         // ngoContext.setNgo(ngoData);
-        
+
         axios.post('https://hooks-practce.firebaseio.com/donations.json', order)
             .then(response => {
                 setLoading(true);
@@ -152,15 +154,14 @@ const Donation = (props) => {
             config: donateForm[key]
         })
     }
-    if(userContext.name)
-    {
-        localStorage.setItem('username',userContext.name);
+    if (userContext.name) {
+        localStorage.setItem('username', userContext.name);
     }
 
     let form = (
         <div>
             <h4>Enter your Contact Details</h4>
-            <form onSubmit={orderHandler}>
+            <form>
                 {formArray.map(formEl => {
                     return <Input
                         key={formEl.id}
@@ -173,16 +174,25 @@ const Donation = (props) => {
                         touched={formEl.config.touched}
                         typed={(event) => inputChangedHandler(event, formEl.id)} />
                 })}
-                <Button type="submit" variant="info" disabled={!isFormValid}>Donate!</Button>
+                {/* <Button type="submit" variant="info" disabled={!isFormValid}>Donate!</Button> */}
             </form>
         </div>
     );
     if (loading)
         form = <Spinner />;
 
+    function handleToken(token, addresses) {
+        console.log({ token, addresses });
+        orderHandler();
+    }
     return (
         <div className={classes.ContactData}>
             {form}
+            <StripeCheckout
+                stripeKey="pk_test_51IeukeSEjnjBpRhZzEuIlh1wP4vvU8cxtAWhmbQHsS2QMBP54hRm7foHDlmY38Oxc7CVXFGA2ng6Uxg5ueS7wVuC00k21LHWul"
+                token={handleToken}
+                amount = {donateForm.amount}
+            />
         </div>
     );
 }
