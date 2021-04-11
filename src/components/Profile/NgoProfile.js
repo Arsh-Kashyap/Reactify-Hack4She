@@ -107,7 +107,7 @@ const Ngo = (props) => {
             <hr></hr>
             <Col>
               <Link to={{ pathname: "/transactions", state: { allDonations } }}>
-                <Button size="md" variant="info">
+                <Button size="lg" variant="primary" block>
                   All transactions
                 </Button>
               </Link>
