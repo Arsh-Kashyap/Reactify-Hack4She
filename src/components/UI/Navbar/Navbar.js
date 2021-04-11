@@ -129,9 +129,10 @@ const NavbarComponent = () => {
 				<Link to="/">
 					<Navbar.Brand href="/">
 						<img
-							style={{ height: "30px" }}
-							src="https://img.icons8.com/color/48/000000/pad.png"
-						/>{" "}
+							style={{ height: "30px", marginRight:"10px" }}
+							
+							src="https://www.flaticon.com/svg/vstatic/svg/328/328032.svg?token=exp=1618124173~hmac=0ed60bed02d58850b007bba8e7cedecd"
+						/>{"  "}
 						<strong>Paddify</strong>
 					</Navbar.Brand>
 				</Link>
