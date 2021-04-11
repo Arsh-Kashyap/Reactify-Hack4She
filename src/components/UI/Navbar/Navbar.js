@@ -128,11 +128,7 @@ const NavbarComponent = () => {
 			>
 				<Link to="/">
 					<Navbar.Brand href="/">
-						<img
-							style={{ height: "30px" }}
-							src="https://img.icons8.com/color/48/000000/pad.png"
-						/>{" "}
-						<strong>Paddify</strong>
+						<strong>Bestowed</strong>
 					</Navbar.Brand>
 				</Link>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />

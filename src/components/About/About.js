@@ -6,8 +6,8 @@ import { userContext } from "../../context/userContext";
 
 const About = () => {
 
-	const images = ["https://i.postimg.cc/L5xXnCxQ/Stayfree-Spotlight.jpg","https://i.postimg.cc/hv1Cxxm5/2-Pix-Teller.png"];
-	const labels=["Stayfree","Whisper","Whisper"];
+	const images = ["https://img.icons8.com/color/452/hyundai.png","https://e7.pngegg.com/pngimages/33/16/png-clipart-jio-logo-jio-reliance-digital-business-logo-mobile-phones-business-blue-text.png"];
+	const labels=["Hyundai","Jio"];
 	const sponsors = images.map((ele, index) => (
 		<Col lg={6} sm={12}>
 			<div className={[classes.card,classes.buzzoutonhover].join(" ")}>
@@ -16,9 +16,6 @@ const About = () => {
 					<Card.Img style={{textAlign:"center"}} src={ele}/>
 					</div>
 					<Card.Header style={{fontSize:"25px"}}><strong>{labels[index]}</strong></Card.Header>
-					<ListGroup variant="flush">
-						<ListGroup.Item><strong>Provided 100,000+ sanitary pads</strong></ListGroup.Item>
-					</ListGroup>
 				</Card>
 			</div>
 		</Col>

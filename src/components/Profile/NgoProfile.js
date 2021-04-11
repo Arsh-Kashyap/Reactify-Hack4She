@@ -122,7 +122,6 @@ const Ngo = (props) => {
           >
             <Card.Header className={classes.SideCardHeader}>
               <p>Total funding recieved: ₹{totalFunding}</p>
-              <p>Pads Distibuted: {Math.floor(totalFunding / 20)}</p>
             </Card.Header>
             <Card.Body>
               <Card.Title>Top Contributions</Card.Title>
